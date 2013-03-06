@@ -1,0 +1,14 @@
+#!/usr/bin/php
+<?php
+	array_shift($argv);
+
+	date_default_timezone_set('Asia/Shanghai');
+
+	foreach($argv as $arg) {
+		if(is_numeric($arg))
+			echo $arg . ': ' . date('Y-m-d H:i:s', $arg) . "\n";
+		elseif(strtotime($arg))
+			echo strtotime($arg) . ': ' . date('Y-m-d H:i:s', strtotime($arg)). " ({$arg})\n";
+	}
+
+
