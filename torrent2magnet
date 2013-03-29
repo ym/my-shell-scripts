@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+from glob import glob
+import sys, os
+import bencode
+import hashlib, base64
+
+def torrent2magnet(f):
+    if len(f) == 0:
+        return False
+
+    f = f[0]
+
+    torrent = open(f, 'r').read()
+
+    try:
+        metadata = bencode.bdecode(torrent)
+    except bencode.BTL.BTFailure:
+        return False
+    
+    hashcontents = bencode.bencode(metadata['info'])
+
+    digest = hashlib.sha1(hashcontents).digest()
+
+    b32hash = base64.b32encode(digest)
+
+    print 'magnet:?xt=urn:btih:' + b32hash
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print "No filename given."
+        exit(-1)
+
+    for file_name in sys.argv:
+        torrent2magnet(glob(file_name))

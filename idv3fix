@@ -1,2 +1,2 @@
 #!/bin/sh
-~/.bin/mp3_tag_iconv-0.9c.pl -f gbk -t utf-8 $1
+~/.bin/mp3_tag_iconv-0.9c.pl -f gbk -t utf-8 -v $1
